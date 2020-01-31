@@ -26,9 +26,10 @@ public class Field extends JPanel {
     }
 
     @Override
-    public void paintComponents(Graphics g) {
-        super.paintComponents(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
+        System.out.println("paintComponents");
         Graphics2D canvas = (Graphics2D) g;
         for(StreamBall ball: Balls) {
             ball.paint(canvas);

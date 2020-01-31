@@ -36,18 +36,21 @@ public class StreamBall implements Runnable {
         speedY = 3* Math.sin(angle);
 
         color = new Color((float) Math.random(),(float) Math.random(),(float) Math.random());
+        //color = new Color(1,1,1);
 
         x = Math.random()*(field.getSize().getWidth() - 2*radius) + radius;
         y = Math.random()*(field.getSize().getHeight() - 2*radius) + radius;
 
         Thread thisThread = new Thread(this);
         thisThread.start();
+        //System.out.println("Streamball");
     }
 
     @Override
     public void run() {
         try{
 
+            //System.out.println("run");
             while (true) {
                 field.canMove(this);
 
@@ -63,7 +66,7 @@ public class StreamBall implements Runnable {
                             speedY = -speedY;
                             y = radius;
                         } else
-                            if(y + speedY <= field.getHeight() - radius) {
+                            if(y + speedY >= field.getHeight() - radius) {
                                 speedY = -speedY;
                                 y = new Double(field.getHeight() - radius).intValue();
                             } else {

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Field extends JPanel {
 
     private boolean pause = false;
+    private int stateErase = 0;
 
     private ArrayList<StreamBall> Balls = new ArrayList<StreamBall>(10);
 
@@ -29,10 +30,11 @@ public class Field extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        System.out.println("paintComponents");
+       // System.out.println("paintComponents");
         Graphics2D canvas = (Graphics2D) g;
         for(StreamBall ball: Balls) {
             ball.paint(canvas);
+            ball.setStateErase(stateErase);
         }
     }
 
@@ -48,6 +50,17 @@ public class Field extends JPanel {
         pause = false;
 
         notifyAll();
+    }
+
+
+    public void stopBall() throws  InterruptedException{
+      wait();
+
+    }
+
+    public void setStateErase(int erase){
+        this.stateErase = erase;
+
     }
 
     public synchronized void canMove(StreamBall Ball) throws InterruptedException {

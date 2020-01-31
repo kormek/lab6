@@ -20,6 +20,8 @@ public class StreamBall implements Runnable {
     private double speedX;
     private double speedY;
 
+    private int stateErase = 0;
+
     public StreamBall(Field field) {
         this.field = field;
 
@@ -54,21 +56,31 @@ public class StreamBall implements Runnable {
             while (true) {
                 field.canMove(this);
 
+                if(radius<=0) {
+                    System.out.println("Radius<0");
+                    field.stopBall();}
+
+
+
                 if(x + speedX <= radius){
                     speedX = -speedX;
                     x = radius;
+                    if(stateErase > 0) radius-=stateErase;
                 } else
                     if(x+speedX >= field.getWidth() - radius) {
                         speedX = -speedX;
                         x = new Double(field.getWidth() - radius).intValue();
+                        if(stateErase > 0) radius-=stateErase;
                     } else
                         if(y +speedY <= radius) {
                             speedY = -speedY;
                             y = radius;
+                            if(stateErase > 0) radius-=stateErase;
                         } else
                             if(y + speedY >= field.getHeight() - radius) {
                                 speedY = -speedY;
                                 y = new Double(field.getHeight() - radius).intValue();
+                                if(stateErase > 0) radius-=stateErase;
                             } else {
                                 x +=speedX;
                                 y +=speedY;
@@ -81,6 +93,13 @@ public class StreamBall implements Runnable {
         }
 
     }
+
+    public void setStateErase(int erase){
+        this.stateErase = erase;
+
+    }
+
+
 
     public void paint(Graphics2D canvas){
         canvas.setColor(color);

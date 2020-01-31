@@ -11,6 +11,9 @@ public class MainFrame extends JFrame {
 
     private JMenuItem pauseMenuItem;
     private JMenuItem resumeMenuItem;
+    private JMenuItem eraseMenuItem;
+
+    private int stateErase = 0;
 
     private Field field = new Field();
 
@@ -64,6 +67,19 @@ public class MainFrame extends JFrame {
         };
         resumeMenuItem = controlMenu.add(resumeAction);
         resumeMenuItem.setEnabled(false);
+
+        Action eraseAction = new AbstractAction("Erase") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanel p = new JPanel();
+                JTextField inputField = new JTextField(10);
+                p.add(inputField);
+                JOptionPane.showConfirmDialog(null, p, "Type smth ", JOptionPane.OK_CANCEL_OPTION);
+                field.setStateErase(Integer.parseInt(inputField.getText()));
+            }
+        };
+        eraseMenuItem = controlMenu.add(eraseAction);
+        eraseMenuItem.setEnabled(true);
 
         getContentPane().add(field,BorderLayout.CENTER);
     }
